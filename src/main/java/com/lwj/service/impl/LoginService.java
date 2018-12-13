@@ -19,8 +19,10 @@ public class LoginService implements ILoginService{
 	private UserPrivateMapper userPrivate_Dao;
 	
 	@Override
-	public  ResponseType login_check(int account, String password, HashMap<String, Object> map) {
-		UserPrivate user_log = userPrivate_Dao.selectByPrimaryKey(account);
+	public  ResponseType login_check(String account, String password, HashMap<String, Object> map) {
+		UserPrivate user_log = userPrivate_Dao.selectByAccount(account);
+		if(user_log==null)
+			return ResponseType.LOGIN_WRONG;
 		if(password.equals(user_log.getPassword()))
 		{
 			map.put("uid", user_log.getUid());
@@ -31,7 +33,7 @@ public class LoginService implements ILoginService{
 	}
 	
 	@Override
-	public JsonResult login(int account, String password) {
+	public JsonResult login(String account, String password) {
 		HashMap<String, Object> data = new HashMap<String, Object>();
 		
         ResponseType responseType = login_check(account,password,data);

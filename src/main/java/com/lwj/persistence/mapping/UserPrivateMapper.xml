@@ -16,6 +16,12 @@
     from private_info
     where uid = #{uid,jdbcType=INTEGER}
   </select>
+  <select id="selectByAccount" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from private_info
+    where account = #{account,jdbcType=VARCHAR}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from private_info
     where uid = #{uid,jdbcType=INTEGER}

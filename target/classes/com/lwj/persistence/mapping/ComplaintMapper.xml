@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lwj.persistence.dao.ComplaintMapper">
+  <resultMap id="BaseResultMap" type="com.lwj.persistence.pojo.Complaint">
+    <id column="complainer" jdbcType="INTEGER" property="complainer" />
+    <id column="complainee" jdbcType="INTEGER" property="complainee" />
+    <id column="time" jdbcType="TIMESTAMP" property="time" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    complainer, complainee, time, content
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.lwj.persistence.pojo.ComplaintKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from complaint
+    where complainer = #{complainer,jdbcType=INTEGER}
+      and complainee = #{complainee,jdbcType=INTEGER}
+      and time = #{time,jdbcType=TIMESTAMP}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.lwj.persistence.pojo.ComplaintKey">
+    delete from complaint
+    where complainer = #{complainer,jdbcType=INTEGER}
+      and complainee = #{complainee,jdbcType=INTEGER}
+      and time = #{time,jdbcType=TIMESTAMP}
+  </delete>
+  <insert id="insert" parameterType="com.lwj.persistence.pojo.Complaint">
+    insert into complaint (complainer, complainee, time, 
+      content)
+    values (#{complainer,jdbcType=INTEGER}, #{complainee,jdbcType=INTEGER}, #{time,jdbcType=TIMESTAMP}, 
+      #{content,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lwj.persistence.pojo.Complaint">
+    insert into complaint
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="complainer != null">
+        complainer,
+      </if>
+      <if test="complainee != null">
+        complainee,
+      </if>
+      <if test="time != null">
+        time,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="complainer != null">
+        #{complainer,jdbcType=INTEGER},
+      </if>
+      <if test="complainee != null">
+        #{complainee,jdbcType=INTEGER},
+      </if>
+      <if test="time != null">
+        #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lwj.persistence.pojo.Complaint">
+    update complaint
+    <set>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where complainer = #{complainer,jdbcType=INTEGER}
+      and complainee = #{complainee,jdbcType=INTEGER}
+      and time = #{time,jdbcType=TIMESTAMP}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lwj.persistence.pojo.Complaint">
+    update complaint
+    set content = #{content,jdbcType=VARCHAR}
+    where complainer = #{complainer,jdbcType=INTEGER}
+      and complainee = #{complainee,jdbcType=INTEGER}
+      and time = #{time,jdbcType=TIMESTAMP}
+  </update>
+</mapper>

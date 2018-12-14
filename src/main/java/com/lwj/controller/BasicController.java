@@ -12,7 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.lwj.util.pojo.JsonResult;
 import com.lwj.service.*;
+
 import com.alibaba.fastjson.JSON;
+
+//import com.lwj.service.impl.RegisterService;
 
 @Controller
 @RequestMapping("/basic")
@@ -22,10 +25,20 @@ public class BasicController {
 	
 	@Resource
 	IInitService initService;
+
+	@Resource
+	IRegisterService registerService;
+	
+	@Resource
+	IFriendDelete friendDelete;
 	
 	@RequestMapping("/register")
 	public void register(HttpServletRequest request, HttpServletResponse response) throws IOException{
-		String id_string  = request.getParameter("id");
+		String account  = request.getParameter("account");
+		String password  = request.getParameter("password");
+		String tel  = request.getParameter("tel");
+		JsonResult result = registerService.register(account, password,tel);
+		sendResult(response, result);
 	}
 	
 	@RequestMapping("/login2")
@@ -38,35 +51,36 @@ public class BasicController {
 	}
 	
 	@RequestMapping("/info")
+	public void info(HttpServletRequest request, HttpServletResponse response) throws IOException{
+		int uid = Integer.parseInt(request.getParameter("uid"));
+		JsonResult result = initService.init(uid);
+		sendResult(response, result);
+	}
+	
+	@RequestMapping("/info2")
 	public String info(HttpServletRequest request,Model model){
 		int uid = Integer.parseInt(request.getParameter("uid"));
 		JsonResult result = initService.init(uid);
 		model.addAttribute("result", JSON.toJSONString(result));
-		return "info";
+		return "info2";
 	}
 	
 	@RequestMapping("/login")
 	public void login(HttpServletRequest request, HttpServletResponse response) throws IOException{
-		String account  = request.getParameter("account");
-//		Integer account = null;
-//		if(account_string!=null)
-//			account = Integer.valueOf(account_string);
-//			
+		String account  = request.getParameter("account");	
 		String password  = request.getParameter("password");
-        
 		JsonResult result = loginService.login(account, password); 
-		
-		sendResult(response, result);
-	}
-	
-	@RequestMapping("/init")
-	public void init(HttpServletRequest request, HttpServletResponse response) throws IOException{
-		
+		sendResult(response, result);	
 	}
 	
 	@RequestMapping("/deleteFriend")
 	public void deleteFriend(HttpServletRequest request, HttpServletResponse response) throws IOException{
-		
+		int uid1 = Integer.parseInt(request.getParameter("uid1"));//uid1为当前用户uid
+		int uid2 = Integer.parseInt(request.getParameter("uid2"));
+		friendDelete.del_friend(uid1, uid2);
+		JsonResult result = initService.init(uid1);
+		System.out.println(JSON.toJSONString(result));
+		sendResult(response, result);
 	}
 	
 	public void sendResult(HttpServletResponse response,JsonResult result) throws IOException{

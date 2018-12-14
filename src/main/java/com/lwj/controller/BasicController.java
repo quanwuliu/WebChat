@@ -10,8 +10,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import sun.jvm.hotspot.asm.ImmediateOrRegister;
+
 import com.lwj.util.pojo.JsonResult;
 import com.lwj.service.*;
+import com.lwj.service.impl.RegisterService;
 
 
 @Controller
@@ -22,10 +25,17 @@ public class BasicController {
 	
 	@Resource
 	IInitService initService;
+
+	@Resource
+	IRegisterService registerService;
 	
 	@RequestMapping("/register")
 	public void register(HttpServletRequest request, HttpServletResponse response) throws IOException{
-		String id_string  = request.getParameter("id");
+		String account  = request.getParameter("account");
+		String password  = request.getParameter("password");
+		String tel  = request.getParameter("tel");
+		JsonResult result = registerService.register(account, password,tel);
+		sendResult(response,result);
 	}
 	
 	@RequestMapping("/login2")

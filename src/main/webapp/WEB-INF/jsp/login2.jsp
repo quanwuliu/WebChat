@@ -6,7 +6,6 @@
   </head>
   
   <body>
-    ${result.code}
-    ${result.msg}
+    ${result}
   </body>
 </html>

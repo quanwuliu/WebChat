@@ -6,6 +6,6 @@
   </head>
   
   <body>
-    ${result.data}
+    ${result}
   </body>
 </html>

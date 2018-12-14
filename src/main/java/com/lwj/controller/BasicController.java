@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.lwj.util.pojo.JsonResult;
 import com.lwj.service.*;
-
+import com.alibaba.fastjson.JSON;
 
 @Controller
 @RequestMapping("/basic")
@@ -33,7 +33,7 @@ public class BasicController {
 		String account  = request.getParameter("account");
 		String password  = request.getParameter("password");
 		JsonResult result = loginService.login(account, password);
-		model.addAttribute("result", result);
+		model.addAttribute("result", JSON.toJSONString(result));
 		return "login2";
 	}
 	
@@ -41,7 +41,7 @@ public class BasicController {
 	public String info(HttpServletRequest request,Model model){
 		int uid = Integer.parseInt(request.getParameter("uid"));
 		JsonResult result = initService.init(uid);
-		model.addAttribute("result", result);
+		model.addAttribute("result", JSON.toJSONString(result));
 		return "info";
 	}
 	
@@ -56,7 +56,7 @@ public class BasicController {
         
 		JsonResult result = loginService.login(account, password); 
 		
-		sendResult(response,result);
+		sendResult(response, result);
 	}
 	
 	@RequestMapping("/init")

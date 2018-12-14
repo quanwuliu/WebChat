@@ -29,6 +29,9 @@ public class BasicController {
 	@Resource
 	IRegisterService registerService;
 	
+	@Resource
+	IFriendDelete friendDelete;
+	
 	@RequestMapping("/register")
 	public void register(HttpServletRequest request, HttpServletResponse response) throws IOException{
 		String account  = request.getParameter("account");
@@ -69,14 +72,12 @@ public class BasicController {
 		sendResult(response,result);
 	}
 	
-	@RequestMapping("/init")
-	public void init(HttpServletRequest request, HttpServletResponse response) throws IOException{
-		
-	}
-	
 	@RequestMapping("/deleteFriend")
 	public void deleteFriend(HttpServletRequest request, HttpServletResponse response) throws IOException{
-		
+		int uid1 = Integer.parseInt(request.getParameter("uid1"));//uid1为当前用户uid
+		int uid2 = Integer.parseInt(request.getParameter("uid2"));
+		friendDelete.del_friend(uid1, uid2);
+//			
 	}
 	
 	public void sendResult(HttpServletResponse response,JsonResult result) throws IOException{

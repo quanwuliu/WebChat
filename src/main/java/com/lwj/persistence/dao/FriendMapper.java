@@ -6,6 +6,8 @@ import com.lwj.persistence.pojo.Friend;
 
 public interface FriendMapper {
     int deleteByPrimaryKey(Integer num);
+    
+    int deleteByUID(Integer uid1, Integer uid2);
 
     int insert(Friend record);
 

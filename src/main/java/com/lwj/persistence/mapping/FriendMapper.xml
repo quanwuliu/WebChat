@@ -25,6 +25,10 @@
     delete from friend
     where num = #{num,jdbcType=INTEGER}
   </delete>
+  <delete id="deleteByUID" parameterType="java.lang.Integer">
+    delete from friend
+    where uid1 = #{uid1,jdbcType=INTEGER} and uid2 = #{uid2,jdbcType=INTEGER}
+  </delete>
   <insert id="insert" parameterType="com.lwj.persistence.pojo.Friend">
     insert into friend (num, uid1, uid2
       )

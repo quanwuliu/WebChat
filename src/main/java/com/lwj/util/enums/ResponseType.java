@@ -2,7 +2,9 @@ package com.lwj.util.enums;
 
 public enum ResponseType {
 	LOGIN_SUCESS(0,"成功"),
-	LOGIN_WRONG(11,"用户名或密码错误");
+	LOGIN_WRONG(11,"用户名或密码错误"),
+	
+	INFO_GET(0,"得到所有信息");
 	
 	String msg;
 	Integer code;

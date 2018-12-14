@@ -6,9 +6,10 @@
     <result column="account" jdbcType="VARCHAR" property="account" />
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="ip_add" jdbcType="VARCHAR" property="ipAdd" />
+    <result column="tel" jdbcType="VARCHAR" property="tel" />
   </resultMap>
   <sql id="Base_Column_List">
-    uid, account, password, ip_add
+    uid, account, password, ip_add, tel
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -28,9 +29,9 @@
   </delete>
   <insert id="insert" parameterType="com.lwj.persistence.pojo.UserPrivate">
     insert into private_info (uid, account, password, 
-      ip_add)
+      ip_add, tel)
     values (#{uid,jdbcType=INTEGER}, #{account,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{ipAdd,jdbcType=VARCHAR})
+      #{ipAdd,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.lwj.persistence.pojo.UserPrivate">
     insert into private_info
@@ -47,6 +48,9 @@
       <if test="ipAdd != null">
         ip_add,
       </if>
+      <if test="tel != null">
+        tel,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="uid != null">
@@ -60,6 +64,9 @@
       </if>
       <if test="ipAdd != null">
         #{ipAdd,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null">
+        #{tel,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -75,6 +82,9 @@
       <if test="ipAdd != null">
         ip_add = #{ipAdd,jdbcType=VARCHAR},
       </if>
+      <if test="tel != null">
+        tel = #{tel,jdbcType=VARCHAR},
+      </if>
     </set>
     where uid = #{uid,jdbcType=INTEGER}
   </update>
@@ -82,7 +92,8 @@
     update private_info
     set account = #{account,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
-      ip_add = #{ipAdd,jdbcType=VARCHAR}
+      ip_add = #{ipAdd,jdbcType=VARCHAR},
+      tel = #{tel,jdbcType=VARCHAR}
     where uid = #{uid,jdbcType=INTEGER}
   </update>
 </mapper>

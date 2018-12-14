@@ -10,7 +10,7 @@ public interface UserPrivateMapper {
     int insertSelective(UserPrivate record);
 
     UserPrivate selectByPrimaryKey(Integer uid);
-    
+
     UserPrivate selectByAccount(String account);
 
     int updateByPrimaryKeySelective(UserPrivate record);

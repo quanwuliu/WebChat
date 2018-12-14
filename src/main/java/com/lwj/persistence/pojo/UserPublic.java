@@ -5,8 +5,6 @@ public class UserPublic {
 
     private String nickname;
 
-    private String tel;
-
     private String gender;
 
     private String avatar;
@@ -25,14 +23,6 @@ public class UserPublic {
 
     public void setNickname(String nickname) {
         this.nickname = nickname == null ? null : nickname.trim();
-    }
-
-    public String getTel() {
-        return tel;
-    }
-
-    public void setTel(String tel) {
-        this.tel = tel == null ? null : tel.trim();
     }
 
     public String getGender() {

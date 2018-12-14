@@ -9,6 +9,8 @@ public class UserPrivate {
 
     private String ipAdd;
 
+    private String tel;
+
     public Integer getUid() {
         return uid;
     }
@@ -39,5 +41,13 @@ public class UserPrivate {
 
     public void setIpAdd(String ipAdd) {
         this.ipAdd = ipAdd == null ? null : ipAdd.trim();
+    }
+
+    public String getTel() {
+        return tel;
+    }
+
+    public void setTel(String tel) {
+        this.tel = tel == null ? null : tel.trim();
     }
 }
